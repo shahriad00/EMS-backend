@@ -1,20 +1,14 @@
-let mongoose = require('mongoose');
-require('mongoose-type-email');
+const mongoose = require('mongoose');
 
-let Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-let UserSchema = new Schema({
+const UserSchema = new Schema({
 
-    isAdmin: {type: Boolean},
+    isAdmin: {type: Boolean, default: false},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     name: {type: String, required: true},
-    // dateOfBirth: {type: Date, required: true},
-    // contactNumber: {type: String, required: true},
-    // department: {type: String, required: true},
-    // designation:{type: String, required: true},
-    // Address: {type: String, required: true},
-    // dateAdded: {type: Date}
+    dateAdded: {type: Date, default: new Date()}
 
 });
 

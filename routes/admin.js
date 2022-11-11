@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
+let employee = require('../controllers/EmployeeController') 
 
-router.get('/hello234234', (req,res)=>{
-    res.send({
-        message:'Weclome to EMS backend'
-    })
-})
+router.post('/api/employee',employee.addEmployee);
+
+router.get('/api/all-employees',employee.getAllEmployee);
+
+router.patch('/api/-employee/:id',employee.updateEmployee);
+
 module.exports = router;

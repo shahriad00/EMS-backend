@@ -9,11 +9,13 @@ const app = express();
 
 require('dotenv').config({ silent: true });
 
+db.connectToAtlas();
+
 app.use(...middlewares);
 
 app.use(adminRouter);
 app.use(userRouter);
 
-db.connectToAtlas();
+
 
 module.exports = app;
