@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
 
-    isAdmin: {type: String, default: 'employee'},
+    role: {type: String, default: 'employee'},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     name: {type: String, required: true},

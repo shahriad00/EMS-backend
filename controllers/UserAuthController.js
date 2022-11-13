@@ -5,12 +5,13 @@ const catchAsync =  require('../utils/catchAsync');
 const getToken = require('../helpers/token');
 
 const login = catchAsync( async(req, res, next) => {
-    const {email, password} = req.body;
+    const {email, password, role} = req.body;
 
     if(!email || !password){
         return next( new AppError('Enter email and password',400))
     }
     const user = await User.findOne({email})
+    console.log(user.role,'- this is a test')
     if(!user){
         return next( new AppError('Email or password does not match',400))
     }
@@ -18,6 +19,9 @@ const login = catchAsync( async(req, res, next) => {
 
     if(!isMatch){
         return next( new AppError('Email or password does not match',400))
+    }
+    if(user.role !== role){
+        return next( new AppError('your role does not match',400))
     }
     createSendToken(user,200,res);
 })
@@ -47,7 +51,7 @@ const createSendToken = async(user, statusCode, res) => {
     user.emailToken = undefined;
 
     res.status(statusCode).json({
-        status: 'login successful !',
+        message: 'login successful !',
         user,
         token,
         statusCode: 200,

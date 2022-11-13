@@ -8,7 +8,7 @@ const getToken = require('../helpers/token');
 // register new user
 const addUser = catchAsync(async (req, res, next) => {
 
-  const { name, email, password, isAdmin } = req.body;
+  const { name, email, password, role } = req.body;
 
   let doesEmailExist = await User.findOne({email})
   
@@ -22,7 +22,7 @@ const addUser = catchAsync(async (req, res, next) => {
     name, 
     email, 
     password : hashedPassword,
-    isAdmin
+    role
   })
   const user = await User.findOne({email})
 
