@@ -33,7 +33,7 @@ const addEmployee = catchAsync(async (req, res) => {
 // get employee
 const getAllEmployee = catchAsync(async (req, res) => {
     Employee.find({}, function (err, Employees) {
-        var employeeMap = [];
+        let employeeMap = [];
 
         Employees.forEach(function (employee) {
             employeeMap.unshift(employee);
