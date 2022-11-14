@@ -3,15 +3,15 @@ var Schema = mongoose.Schema;
 
 var LeaveSchema = new Schema({
 
-    applicantID: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    applicantID: {type: String, required: true},
     title: {type: String, required: true},
+    name: {type: String, required: true},
     type: {type: String, required: true},
-    startDate: {type: Date, required: true},
-    endDate: {type: Date, required: true},
-    appliedDate: {type: Date, required: true},
-    period: {type: Number, required: true, min: 1, max: 10},
-    reason: {type: String, required: true},
-    adminResponse: {type: String, default: 'N/A'},
+    startDate: {type: String, required: true},
+    endDate: {type: String, required: true},
+    description: {type: String, required: true},
+    appliedDate: {type: String, default:new Date()},
+    adminResponse: {type: String, default: 'pending'},
 
 });
 

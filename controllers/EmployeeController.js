@@ -91,6 +91,8 @@ const updateEmployee = catchAsync(async (req, res) => {
     });
 });
 
+
+
 module.exports = {
     addEmployee,
     getAllEmployee,

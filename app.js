@@ -3,7 +3,7 @@ const db = require('./database');
 const middlewares = require('./middleware/index');
 const adminRouter = require('./routes/admin');
 const userRouter = require('./routes/users');
-// const _delete = require('./helpers/deleteFolderFiles');
+const employeeRouter = require('./routes/employee');
 
 const app = express();
 
@@ -13,6 +13,7 @@ db.connectToAtlas();
 
 app.use(...middlewares);
 
+app.use(employeeRouter);
 app.use(adminRouter);
 app.use(userRouter);
 
