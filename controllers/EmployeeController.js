@@ -92,9 +92,18 @@ const updateEmployee = catchAsync(async (req, res) => {
 });
 
 
+// get single employee
+const getSingleEmployee = catchAsync(async (req, res) => {
+    const _id = req.params.id;
+    const employee = await Employee.findOne({_id})
+    res.status(200).send(employee);
+});
+
+
 
 module.exports = {
     addEmployee,
     getAllEmployee,
     updateEmployee,
+    getSingleEmployee,
 };
