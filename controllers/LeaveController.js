@@ -22,7 +22,7 @@ const ApplyForLeave = catchAsync(async (req, res) => {
     });
 });
 
-//get applied Leave applications
+//get applied Leave applications - for Employee
 const getAppliedLeaves = catchAsync(async (req, res) => {
     const id = req.params.id;
 
@@ -32,7 +32,7 @@ const getAppliedLeaves = catchAsync(async (req, res) => {
         .sort({ _id: -1 })
         .exec(function findAllLeaves(err, docs) {
             for (let i = 0; i < docs.length; i++) {
-                if(docs[i]['applicantID'] == id){
+                if (docs[i]['applicantID'] == id) {
                     leaveChunks.push(docs[i]);
                 }
             }
@@ -40,7 +40,47 @@ const getAppliedLeaves = catchAsync(async (req, res) => {
         });
 });
 
+//get all applied Leave applications - for Admin
+const getAllAppliedLeaves = catchAsync(async (req, res) => {
+    
+    Leave.find({})
+        .sort({ _id: -1 })
+        .exec(function findAllEmployeeLeaves(err, docs) {
+           let totalLeaveChunks = docs.map(item => item)
+            res.status(200).send(totalLeaveChunks);
+        });
+});
+
+
+//get single applied Leave application - for Admin
+const getSingleAppliedLeaves = catchAsync(async (req, res) => {
+    const _id = req.params.id;
+
+    const leaveDetails = await Leave.findById({_id})
+    res.status(200).send(leaveDetails);
+    
+});
+
+//Update admin response for single applied Leave application - for Admin
+
+const updateResponseSingleLeaves = catchAsync(async (req, res) => {
+    const _id = req.params.id;
+    const {adminResponse} = req.body;
+
+    const info = await Leave.findOneAndUpdate({_id},{
+        adminResponse
+    })
+    await info.save()
+    res.status(200).send({
+        message: 'Admin response update successfully'
+    });
+    
+});
+
 module.exports = {
     ApplyForLeave,
     getAppliedLeaves,
+    getAllAppliedLeaves,
+    getSingleAppliedLeaves,
+    updateResponseSingleLeaves
 };
