@@ -12,9 +12,11 @@ router.patch('/api/employee/:id',employee.updateEmployee);
 
 router.get('/api/all-applied-leave-applications',leave.getAllAppliedLeaves);
 
-router.get('/api/leave-application/:id',leave.getSingleAppliedLeaves);
+router.get('/api/leave-application/:id',leave.getSingleAppliedLeave);
 
-router.patch('/api/leave-application/:id',leave.updateResponseSingleLeaves);
+router.patch('/api/leave-application/:id',leave.updateResponseSingleLeave);
+
+router.delete('/api/leave-application/:id',leave.deleteSingleAppliedLeave);
 
 router.get('/api/employee-details/:id',employee.getSingleEmployee)
 
@@ -32,6 +34,8 @@ router.get('/api/project/:id',project.getSingleProject);
 router.patch('/api/project/:id',project.updateProject);
 
 router.delete('/api/project/:id',project.deleteSingleProject);
+
+router.get('/api/all-project',project.getAllProjectsLength);
 
 
 

@@ -1,8 +1,7 @@
 const Leave = require('../models/leave');
-const User = require('../models/user');
 const catchAsync = require('../utils/catchAsync');
 
-// add new employee
+// add new employee leave
 const ApplyForLeave = catchAsync(async (req, res) => {
     const { applicantID, name, title, type, startDate, endDate, description } =
         req.body;
@@ -53,7 +52,7 @@ const getAllAppliedLeaves = catchAsync(async (req, res) => {
 
 
 //get single applied Leave application - for Admin
-const getSingleAppliedLeaves = catchAsync(async (req, res) => {
+const getSingleAppliedLeave = catchAsync(async (req, res) => {
     const _id = req.params.id;
 
     const leaveDetails = await Leave.findById({_id})
@@ -63,7 +62,7 @@ const getSingleAppliedLeaves = catchAsync(async (req, res) => {
 
 //Update admin response for single applied Leave application - for Admin
 
-const updateResponseSingleLeaves = catchAsync(async (req, res) => {
+const updateResponseSingleLeave = catchAsync(async (req, res) => {
     const _id = req.params.id;
     const {adminResponse} = req.body;
 
@@ -77,10 +76,23 @@ const updateResponseSingleLeaves = catchAsync(async (req, res) => {
     
 });
 
+
+//delete single Applied Leave
+const deleteSingleAppliedLeave = catchAsync(async (req, res) => {
+    const _id = req.params.id;
+
+    await Leave.findByIdAndDelete({ _id });
+    res.status(200).send({
+        message: 'Leave deleted successfully'
+    });
+});
+
 module.exports = {
     ApplyForLeave,
     getAppliedLeaves,
     getAllAppliedLeaves,
-    getSingleAppliedLeaves,
-    updateResponseSingleLeaves
+    getSingleAppliedLeave,
+    deleteSingleAppliedLeave,
+    updateResponseSingleLeave,
+    
 };

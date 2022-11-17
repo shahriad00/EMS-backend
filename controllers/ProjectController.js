@@ -58,6 +58,18 @@ const getAllProjects = catchAsync(async (req, res) => {
         });
 });
 
+//get ALL projects length for dashboard
+const getAllProjectsLength = catchAsync(async (req, res) => {
+    Project.find({})
+        .sort({ _id: -1 })
+        .exec(function findAllProjects(err, docs) {
+            let ProjectsChunks = docs.map((project)=> project)
+
+            res.status(200).send(ProjectsChunks);
+        });
+});
+
+
 //get single project
 const getSingleProject = catchAsync(async (req, res) => {
     const _id = req.params.id;
@@ -83,5 +95,6 @@ module.exports = {
     updateProject,
     getAllProjects,
     getSingleProject,
-    deleteSingleProject
+    deleteSingleProject,
+    getAllProjectsLength
 };
