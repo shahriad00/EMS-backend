@@ -30,7 +30,7 @@ const updateProject = catchAsync(async (req, res) => {
     const { title, type, startDate, endDate, status, description } =
         req.body;
     
-    const project = await findByIdAndUpdate({_id},{
+    const project = await Project.findByIdAndUpdate({_id},{
         title,
         type,
         startDate,

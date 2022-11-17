@@ -8,7 +8,7 @@ router.post('/api/employee',employee.addEmployee);
 
 router.get('/api/all-employees',employee.getAllEmployee);
 
-router.patch('/api/-employee/:id',employee.updateEmployee);
+router.patch('/api/employee/:id',employee.updateEmployee);
 
 router.get('/api/all-applied-leave-applications',leave.getAllAppliedLeaves);
 
