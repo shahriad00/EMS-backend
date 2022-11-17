@@ -46,7 +46,7 @@ const getAllEmployee = catchAsync(async (req, res) => {
 //update Employee
 
 const updateEmployee = catchAsync(async (req, res) => {
-  const {_id} = req.params
+  const _id = req.params.id
     const {
         name,
         email,
@@ -58,10 +58,9 @@ const updateEmployee = catchAsync(async (req, res) => {
         address,
     } = req.body;
 
-    await Employee.findOneAndUpdate(
+    const employee = await Employee.findOneAndUpdate(
         { _id },
         {
-            $set: {
                 name,
                 email,
                 dateOfBirth,
@@ -70,24 +69,12 @@ const updateEmployee = catchAsync(async (req, res) => {
                 salary,
                 designation,
                 address,
-            },
-        },
-        { new: true }
+            
+        }
     );
-
-    await Employee.create({
-        email,
-        name,
-        dateOfBirth,
-        contactNumber,
-        department,
-        salary,
-        designation,
-        address,
-    });
-    res.send({
-        message: 'Employee added successfully',
-        statusCode: 200,
+    await employee.save();
+    res.status(200).send({
+        message: 'Employee Updated successfully'
     });
 });
 

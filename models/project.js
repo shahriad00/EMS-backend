@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var ProjectSchema = new Schema({
 
-    employeeID: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    employeeID: {type: String, required: true},
+    name: {type: String, required: true},
     title: {type: String, required: true},
     type: {type: String, required: true},
     status: {type: String, required: true},
