@@ -100,10 +100,20 @@ const getSingleEmployee = catchAsync(async (req, res) => {
 });
 
 
+// delete single employee
+const deleteSingleEmployee = catchAsync(async (req, res) => {
+    const _id = req.params.id;
+    await Employee.findByIdAndDelete({_id})
+    res.status(200).send({
+        message:'Employee removed successfully'
+    });
+});
+
 
 module.exports = {
     addEmployee,
     getAllEmployee,
     updateEmployee,
     getSingleEmployee,
+    deleteSingleEmployee
 };

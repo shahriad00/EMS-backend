@@ -17,4 +17,6 @@ router.patch('/api/leave-application/:id',leave.updateResponseSingleLeaves);
 
 router.get('/api/employee-details/:id',employee.getSingleEmployee)
 
+router.delete('/api/delete-employee/:id',employee.deleteSingleEmployee)
+
 module.exports = router;
