@@ -3,6 +3,7 @@ let router = express.Router();
 let employee = require('../controllers/EmployeeController');
 let leave = require('../controllers/LeaveController');
 let project = require('../controllers/ProjectController');
+let attendance = require('../controllers/AttendanceController')
 
 router.post('/api/employee',employee.addEmployee);
 
@@ -36,6 +37,10 @@ router.patch('/api/project/:id',project.updateProject);
 router.delete('/api/project/:id',project.deleteSingleProject);
 
 router.get('/api/all-project',project.getAllProjectsLength);
+
+//attendance
+
+router.get('/api/all-attendance',attendance.getAllAttendance)
 
 
 

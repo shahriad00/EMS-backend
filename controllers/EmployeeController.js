@@ -30,23 +30,22 @@ const addEmployee = catchAsync(async (req, res) => {
     });
 });
 
-// get employee
+// get all employees
+
 const getAllEmployee = catchAsync(async (req, res) => {
-    Employee.find({}, function (err, Employees) {
-        let allEmployees = [];
 
-        Employees.forEach(function (employee) {
-            allEmployees.unshift(employee);
-        });
-
-        res.send(allEmployees);
+    Employee.find({})
+    .sort({ _id: -1 })
+    .exec((err, docs) => {
+        let allEmployees = docs.map(employee => employee);
+        res.status(200).send(allEmployees);
     });
 });
 
 //update Employee
 
 const updateEmployee = catchAsync(async (req, res) => {
-  const _id = req.params.id
+    const _id = req.params.id;
     const {
         name,
         email,
@@ -61,46 +60,42 @@ const updateEmployee = catchAsync(async (req, res) => {
     const employee = await Employee.findOneAndUpdate(
         { _id },
         {
-                name,
-                email,
-                dateOfBirth,
-                contactNumber,
-                department,
-                salary,
-                designation,
-                address,
-            
+            name,
+            email,
+            dateOfBirth,
+            contactNumber,
+            department,
+            salary,
+            designation,
+            address,
         }
     );
     await employee.save();
     res.status(200).send({
-        message: 'Employee Updated successfully'
+        message: 'Employee Updated successfully',
     });
 });
-
 
 // get single employee
 const getSingleEmployee = catchAsync(async (req, res) => {
     const _id = req.params.id;
-    const employee = await Employee.findOne({_id})
+    const employee = await Employee.findOne({ _id });
     res.status(200).send(employee);
 });
-
 
 // delete single employee
 const deleteSingleEmployee = catchAsync(async (req, res) => {
     const _id = req.params.id;
-    await Employee.findByIdAndDelete({_id})
+    await Employee.findByIdAndDelete({ _id });
     res.status(200).send({
-        message:'Employee removed successfully'
+        message: 'Employee removed successfully',
     });
 });
-
 
 module.exports = {
     addEmployee,
     getAllEmployee,
     updateEmployee,
     getSingleEmployee,
-    deleteSingleEmployee
+    deleteSingleEmployee,
 };

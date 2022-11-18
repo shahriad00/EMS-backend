@@ -51,8 +51,47 @@ const createSendToken = async(user, statusCode, res) => {
   });
 }
 
+//get all Employee users
 
+const getEmployeeUsers = catchAsync(async(req,res) => {
+
+  User.find({})
+      .sort({ _id: -1 })
+      .exec(function findAllUser(err, docs) {
+          let allEmployeeUsers = docs.filter((user)=>{
+              return user.role === 'employee'
+          })
+          res.status(200).send(allEmployeeUsers);
+      });
+})
+
+
+//get all users
+
+const getAllUsers = catchAsync(async(req,res) => {
+
+  User.find({})
+      .sort({ _id: -1 })
+      .exec(function findAllUser(err, docs) {
+          let allUsers = docs.map(user=>user)
+          res.status(200).send(allUsers);
+      });
+})
+
+
+const deleteUser = catchAsync(async(req,res) => {
+
+  const _id = req.params.id;
+
+    await User.findByIdAndDelete({ _id });
+    res.status(200).send({
+        message: 'User deleted successfully'
+    });
+})
 
 module.exports={
-    addUser
+    addUser,
+    deleteUser,
+    getAllUsers,
+    getEmployeeUsers
 }
