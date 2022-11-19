@@ -17,6 +17,10 @@ app.use(employeeRouter);
 app.use(adminRouter);
 app.use(userRouter);
 
+if(process.env.NODE_ENV == 'production'){
+    app.use(express.static('client/build'));
+}
+
 
 
 module.exports = app;
